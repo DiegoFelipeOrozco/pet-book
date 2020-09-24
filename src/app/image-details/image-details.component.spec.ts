@@ -50,4 +50,18 @@ describe('ImageDetailsComponent', () => {
       expect(fixture.nativeElement.querySelector('.img-container')).toBeTruthy();
     });
   });
+
+  describe('Encontrar imagen por id', () => {
+    it('Cuando de obtiene una imagen por id debe retornar la información de la imagen con el id buscado, debe fallar porque el mock siempre devuelve la imagen 1', () => {
+      const imagenResponse = { 
+        id: 4,
+        brand: "gato",
+        url: "assets/images/gato2.jpeg"
+      };
+
+      let response = mockService.getImage(2)
+  
+      expect(response).toEqual(imagenResponse);
+    });
+  });
 });

@@ -64,6 +64,26 @@ describe('ImageGalleryComponent', () => {
       
       expect(styles.display).toEqual(valor);
     });
+
+    
+    it('Cuando se carga la vista, la imagen con id=img1 debe cargar la imagen del perro1', () => {
+      const id = '#img1'
+      expect(fixture.nativeElement.querySelector(id).src).toContain('assets/images/perro1.jpg');
+    });
+
+    it(`En el header debe aparecer el texto 'Pet Book Prueba Devops'`, () => {
+      const header = '.header';
+      const expectText = 'Pet Book Prueba Devops';
+      const div = fixture.debugElement.query(By.css(header));
+      expect(div.nativeElement.textContent.trim()).toBe(expectText)
+    });
+
+    it(`En el header debe existir texto, no puede estar vacío (''), como existe texto debe fallar`, () => {
+      const header = '.header';
+      const div = fixture.debugElement.query(By.css(header));
+      expect(div.nativeElement.textContent.trim()).toEqual('');
+    });
+
   });
 
   describe("ngOnChanges", () => {
