@@ -86,7 +86,7 @@ describe('ImageGalleryComponent', () => {
     it('Cuando se llama la lista ´images´ (no está en uso) del componente, debe retornar indefinido', () => {
       let resp = component.images;
 
-      expect(resp).toBeUndefined;
+      expect(resp).toBeUndefined();
     });
   });
 });
