@@ -38,14 +38,7 @@ describe('ImageGalleryComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('fixture', () => {    
-    it("Verifica el valor de la propiedad 'deshabilitado' de los botones", () => {
-      const valor = false;
-
-      let resp = fixture.debugElement.query(By.css('button'));      
-      
-      expect(resp.properties.disabled).toEqual(valor);
-    });
+  describe('fixture', () => {      
 
     it('Cuando se carga la vista, debe exisitr un contenedor de imágen con la clase .img', () => {
       const clase = '.img';
@@ -53,6 +46,14 @@ describe('ImageGalleryComponent', () => {
       let resp = fixture.nativeElement;
       
       expect(resp.querySelector(clase)).toBeTruthy();
+    });
+
+    it("Cuando se carga la vista, debe verificar el valor el valor 'deshabilitado' de los botones", () => {
+      const valor = false;
+
+      let resp = fixture.debugElement.query(By.css('button'));      
+      
+      expect(resp.properties.disabled).toEqual(valor);
     });
     
     it("Cuando se carga la vista, la propiedad de estilo 'display' de los li debe estar en 'inline'", () => {
