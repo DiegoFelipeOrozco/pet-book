@@ -61,7 +61,7 @@ describe('ImageDetailsComponent', () => {
 
       let response = mockService.getImage(2)
   
-      expect(response).toEqual(imagenResponse);
+      expect(response).not.toEqual(imagenResponse);
     });
   });
 });

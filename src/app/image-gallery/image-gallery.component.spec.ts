@@ -81,7 +81,7 @@ describe('ImageGalleryComponent', () => {
     it(`En el header debe existir texto, no puede estar vacío (''), como existe texto debe fallar`, () => {
       const header = '.header';
       const div = fixture.debugElement.query(By.css(header));
-      expect(div.nativeElement.textContent.trim()).toEqual('');
+      expect(div.nativeElement.textContent.trim()).not.toEqual('');
     });
 
   });
