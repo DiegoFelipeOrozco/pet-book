@@ -1,49 +1,43 @@
-trigger:
-- master
-
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install -g @angular/cli
-    npm install
-    ng build --prod
-    npm run test-ci   
-    ls /coverage
-    ls     
-  displayName: 'npm install, unitTest and build'
-
-- task: SonarCloudPrepare@1
-  displayName: 'Prepare analysis on Sonar'
+    versionSpec: '12.18.x'
+- task: CmdLine@2
+  displayName: build
   inputs:
-    SonarCloud: 'sonar-cloud'
+    script: |
+      npm install
+      npm audit
+      ng build --prod
+    failOnStderr: true
+- task: CmdLine@2
+  displayName: test
+  inputs:
+    script: 'npm run test-ci'
+    failOnStderr: true
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'azure-devops'
+    organization: 'diegofelipeorozco'
     scannerMode: 'CLI'
-    organization: 'cacevedod'
-
+    configMode: 'file'
 - task: SonarCloudAnalyze@1
-  displayName: 'Run Code Analysis'
-
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-
-- task: sonarcloud-buildbreaker@2
-  inputs:
-    SonarCloud: 'sonar-cloud'
-    organization: 'cacevedod'
-
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: 'dist/pet-book'
+    rootFolderOrFile: 'dist'
     includeRootFolder: true
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/pet-book-$(Build.BuildId).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
-
+    verbose: true
 - task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
