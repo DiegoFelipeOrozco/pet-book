@@ -12,7 +12,6 @@ steps:
       npm install
       npm audit
       npm run build
-    failOnStderr: true
 - task: CmdLine@2
   displayName: test
   inputs:
