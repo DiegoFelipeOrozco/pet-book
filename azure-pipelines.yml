@@ -11,7 +11,7 @@ steps:
     script: |
       npm install
       npm audit
-      ng build --prod
+      npm run build
     failOnStderr: true
 - task: CmdLine@2
   displayName: test
