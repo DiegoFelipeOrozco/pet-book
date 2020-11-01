@@ -45,6 +45,7 @@ steps:
     awsCredentials: 'AWS S3'
     regionName: 'us-east-1'
     bucketName: 'artefactospreproduccion'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
     globExpressions: '*.zip'
     targetFolder: 'pet-book'
     createBucket: true
