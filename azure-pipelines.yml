@@ -49,3 +49,9 @@ steps:
     globExpressions: '*.zip'
     targetFolder: 'pet-book'
     createBucket: true
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Docker Hub'
+    repository: 'pet-book'
+    command: 'buildAndPush'
+    Dockerfile: 'Dockerfile'
