@@ -44,7 +44,7 @@ steps:
   inputs:
     awsCredentials: 'AWS S3'
     regionName: 'us-east-1'
-    bucketName: 'DiegoFelipeOrozcoPenagosArtefactosPreProduccion'
+    bucketName: 'diego_felipe_orozco_penagos_artefactos_pre_produccion'
     globExpressions: '*.zip'
     targetFolder: 'pet-book'
     createBucket: true
