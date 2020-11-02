@@ -1,8 +1,13 @@
+trigger:
+- master
+- azure-pipelines
+
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
 - task: NodeTool@0
+  displayName: install Node
   inputs:
     versionSpec: '12.18.x'
 - task: CmdLine@2
@@ -25,9 +30,11 @@ steps:
     configMode: 'file'
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
+  displayName: Quality Gates Passed
   inputs:
     pollingTimeoutSec: '300'
 - task: ArchiveFiles@2
+  displayName: zip distribution
   inputs:
     rootFolderOrFile: 'dist'
     includeRootFolder: true
@@ -41,6 +48,7 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 - task: S3Upload@1
+  displayName: AWS S3 upload
   inputs:
     awsCredentials: 'AWS S3'
     regionName: 'us-east-1'
@@ -50,6 +58,7 @@ steps:
     targetFolder: 'pet-book'
     createBucket: true
 - task: Docker@2
+  displayName: build production docker image and push to DockerHub
   inputs:
     containerRegistry: 'Docker Hub'
     repository: 'dioro/pet-book'
